@@ -1,0 +1,40 @@
+<form class="container" (ngSubmit)="onSubmit()" [formGroup]="formulaire">
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+
+    <mat-error *ngIf="formulaire.get('email')?.hasError('email')">
+      Email invalid
+    </mat-error>
+    <mat-error *ngIf="formulaire.get('email')?.hasError('required')">
+      Email obligatoire
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Prénom</mat-label>
+    <input matInput formControlName="prenom" />
+    <mat-error> Prénom obligatoire </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nom</mat-label>
+    <input matInput formControlName="nom" />
+    <mat-error *ngIf="formulaire.get('nom')?.hasError('required')">
+      Nom obligatoire
+    </mat-error>
+    <mat-error *ngIf="formulaire.get('nom')?.hasError('minlength')">
+      Nom trop court (il manque
+      {{
+        formulaire.get("nom")?.getError("minlength").requiredLength -
+          formulaire.get("nom")?.getError("minlength").actualLength
+      }}
+      caractères )
+    </mat-error>
+  </mat-form-field>
+
+  <div>
+    <button mat-raised-button type="submit" color="primary">Ajouter</button>
+    <a routerLink="/accueil" mat-raised-button color="warn">Annuler</a>
+  </div>
+</form>
