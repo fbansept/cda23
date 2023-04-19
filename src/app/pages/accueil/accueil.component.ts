@@ -1,32 +1,34 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Utilisateur } from 'src/app/models/utilisateur';
+import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',
-  styleUrls: ['./accueil.component.scss']
+  styleUrls: ['./accueil.component.scss'],
 })
 export class AccueilComponent {
+  listeUtilisateur: Utilisateur[] = [];
 
-  listeUtilisateur:any[] = []
-
-  constructor (private http: HttpClient) {}
+  constructor(private serviceUtilisateur: UtilisateurService) {}
 
   ngOnInit() {
-   this.raffraichir()
+    this.serviceUtilisateur._utilisateurs.subscribe(
+      (utilisateurs) => (this.listeUtilisateur = utilisateurs)
+    );
+
+    this.raffraichir();
   }
 
-  raffraichir (): void {
-    this.http
-        .get("http://localhost:8080/utilisateurs")
-        .subscribe((utilisateurs:any) => 
-          this.listeUtilisateur = utilisateurs)
+  raffraichir(): void {
+    this.serviceUtilisateur.getUtilisateurs();
   }
 
-  onDeleteUser(idUtilisateur: number) {
-    this.http
-        .delete("http://localhost:8080/utilisateur/" + idUtilisateur)
-        .subscribe(utilisateur => this.raffraichir())
+  onDeleteUser(idUtilisateur: number | undefined) {
+    if (idUtilisateur != undefined) {
+      this.serviceUtilisateur
+        .deleteUtilisateur(idUtilisateur)
+        .subscribe((utilisateur) => this.raffraichir());
+    }
   }
-
 }

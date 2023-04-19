@@ -1,40 +1,72 @@
-<form class="container" (ngSubmit)="onSubmit()" [formGroup]="formulaire">
-  <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email" />
+<ng-container [ngSwitch]="codeRetour">
+  <form
+    *ngSwitchDefault
+    class="container"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="formulaire"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
 
-    <mat-error *ngIf="formulaire.get('email')?.hasError('email')">
-      Email invalid
-    </mat-error>
-    <mat-error *ngIf="formulaire.get('email')?.hasError('required')">
-      Email obligatoire
-    </mat-error>
-  </mat-form-field>
+      <mat-error *ngIf="formulaire.get('email')?.hasError('email')">
+        Email invalid
+      </mat-error>
+      <mat-error *ngIf="formulaire.get('email')?.hasError('required')">
+        Email obligatoire
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Prénom</mat-label>
-    <input matInput formControlName="prenom" />
-    <mat-error> Prénom obligatoire </mat-error>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="prenom" />
+      <mat-error> Prénom obligatoire </mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Nom</mat-label>
-    <input matInput formControlName="nom" />
-    <mat-error *ngIf="formulaire.get('nom')?.hasError('required')">
-      Nom obligatoire
-    </mat-error>
-    <mat-error *ngIf="formulaire.get('nom')?.hasError('minlength')">
-      Nom trop court (il manque
-      {{
-        formulaire.get("nom")?.getError("minlength").requiredLength -
-          formulaire.get("nom")?.getError("minlength").actualLength
-      }}
-      caractères )
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="nom" />
+      <mat-error *ngIf="formulaire.get('nom')?.hasError('required')">
+        Nom obligatoire
+      </mat-error>
+      <mat-error *ngIf="formulaire.get('nom')?.hasError('minlength')">
+        Nom trop court (il manque
+        {{
+          formulaire.get("nom")?.getError("minlength").requiredLength -
+            formulaire.get("nom")?.getError("minlength").actualLength
+        }}
+        caractères )
+      </mat-error>
+    </mat-form-field>
 
-  <div>
-    <button mat-raised-button type="submit" color="primary">Ajouter</button>
-    <a routerLink="/accueil" mat-raised-button color="warn">Annuler</a>
+    <div>
+      <button mat-raised-button type="submit" color="primary">
+        {{ idUtilisateur == null ? "Ajouter" : "Modifier" }}
+      </button>
+      <a routerLink="/accueil" mat-raised-button color="warn">Annuler</a>
+    </div>
+  </form>
+
+  <div *ngSwitchCase="404">
+    <h2>Cet utilisateur n'existe pas (il a peut être été supprimé)</h2>
+    <a mat-raised-button color="primary" routerLink="/accueil">
+      Retour à l'accueil
+    </a>
   </div>
-</form>
+
+  <div *ngSwitchCase="500">
+    <h2>Erreur inconnue</h2>
+
+    <p>Contacter l'admnistrateur en lui communiquant cette erreur</p>
+    <pre>
+    {{ messageErreur }}
+  </pre
+    >
+
+    <a mat-raised-button color="warn"> Envoyer un rapport d'erreur </a>
+
+    <a mat-raised-button color="primary" routerLink="/accueil">
+      Retour à l'accueil
+    </a>
+  </div>
+</ng-container>
