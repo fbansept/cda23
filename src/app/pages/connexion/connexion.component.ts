@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ConnexionService } from 'src/app/services/connexion.service';
 
 @Component({
   selector: 'app-connexion',
@@ -13,19 +15,27 @@ export class ConnexionComponent {
     motDePasse: ['', [Validators.required]],
   });
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private connexionService: ConnexionService,
+    private router: Router
+  ) {}
+
+  erreurLogin: boolean = false;
 
   onSubmit(): void {
     if (this.formulaire.valid) {
-      this.http
-        .post(
-          'http://localhost:8080/connexion', 
-          this.formulaire.value,
-          {responseType: 'text'}
-        )
-        .subscribe((jwt) => {
-          localStorage.setItem("jwt", jwt)
-        });
+      this.connexionService.connexion(this.formulaire.value)
+      .subscribe({
+        next: (jwt) => {
+          localStorage.setItem('jwt', jwt);
+          
+          this.router.navigateByUrl('/accueil');
+        },
+        error: (erreur) => {
+          this.erreurLogin = true;
+        },
+      });
     }
   }
 }
