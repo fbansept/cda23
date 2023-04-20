@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -11,6 +11,7 @@ export class UtilisateurService {
   constructor(private http: HttpClient) {}
 
   public getUtilisateurs() {
+
     this.http
       .get('http://localhost:8080/utilisateurs')
       .subscribe((utilisateurs: any) => {
@@ -19,16 +20,14 @@ export class UtilisateurService {
   }
 
   public getUtilisateur(id: number): Observable<any> {
-    return this.http.get(
-      'http://localhost:8080/utilisateur/' + id
-    );
+    return this.http.get('http://localhost:8080/utilisateur/' + id);
   }
 
   public deleteUtilisateur(id: number): Observable<any> {
-    return this.http.delete('http://localhost:8080/utilisateur/' + id);
+    return this.http.delete('http://localhost:8080/admin/utilisateur/' + id);
   }
 
   public editionUtilisateur(utilisateur: any): Observable<any> {
-    return this.http.post('http://localhost:8080/utilisateur', utilisateur);
+    return this.http.post('http://localhost:8080/admin/utilisateur', utilisateur);
   }
 }
