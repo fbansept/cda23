@@ -14,24 +14,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="utilisateurConnecte != null">
           <a class="nav-link" routerLinkActive="active" routerLink="accueil"
             >Accueil
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="utilisateurConnecte == null">
           <a class="nav-link" routerLinkActive="active" routerLink="connexion"
             >Connexion</a
           >
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer;" (click)="onDeconnexion()">
+        <li class="nav-item" *ngIf="utilisateurConnecte != null">
+          <a class="nav-link" style="cursor: pointer" (click)="onDeconnexion()">
             Déconnexion
           </a>
         </li>
-
-
       </ul>
       <form class="d-flex">
         <input

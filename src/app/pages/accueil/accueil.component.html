@@ -1,7 +1,7 @@
 <h2>Accueil</h2>
 
 <div class="container">
-  <a mat-raised-button routerLink="/ajout-utilisateur" color="primary">
+  <a *ngIf="isAdmin" mat-raised-button routerLink="/ajout-utilisateur" color="primary">
     <mat-icon>add</mat-icon>
     Ajouter un utilisateur
   </a>
@@ -34,7 +34,7 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <a
+          <a *ngIf="isAdmin" 
             [routerLink]="['/edit-utilisateur', utilisateur.id]"
             mat-raised-button
             color="primary"
@@ -42,7 +42,7 @@
             <mat-icon fontIcon="edit"></mat-icon>
             Modifier
           </a>
-          <button
+          <button *ngIf="isAdmin" 
             (click)="onDeleteUser(utilisateur.id)"
             mat-raised-button
             color="warn"

@@ -18,6 +18,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './services/jwt.interceptor';
+import { Page403Component } from './pages/page403/page403.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { JwtInterceptor } from './services/jwt.interceptor';
     AccueilComponent,
     ConnexionComponent,
     Page404Component,
-    EditionUtilisateurComponent
+    EditionUtilisateurComponent,
+    Page403Component
   ],
   imports: [
     BrowserModule,

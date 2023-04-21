@@ -29,7 +29,7 @@ export class ConnexionComponent {
       .subscribe({
         next: (jwt) => {
           localStorage.setItem('jwt', jwt);
-          
+          this.connexionService.updateUserConnected();
           this.router.navigateByUrl('/accueil');
         },
         error: (erreur) => {
