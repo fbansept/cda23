@@ -1,7 +1,14 @@
-<h2>Accueil</h2>
+<h2 (mousemove)="onClick()">Accueil</h2>
+
+{{ dateMaintenant | date : "dd/MM/yyyy" }}
 
 <div class="container">
-  <a *ngIf="isAdmin" mat-raised-button routerLink="/ajout-utilisateur" color="primary">
+  <a
+    *ngIf="isAdmin"
+    mat-raised-button
+    routerLink="/ajout-utilisateur"
+    color="primary"
+  >
     <mat-icon>add</mat-icon>
     Ajouter un utilisateur
   </a>
@@ -11,13 +18,14 @@
       <mat-card>
         <mat-card-header>
           <div mat-card-avatar></div>
-          <mat-card-title>
-            {{ utilisateur.prenom }} {{ utilisateur.nom }}</mat-card-title
-          >
+          <mat-card-title> {{ utilisateur | fullname }}</mat-card-title>
           <mat-card-subtitle>
             <span [class.titre-administrator]="utilisateur.role.id == 2">
               {{ utilisateur.role.nom }}
             </span>
+            <i>
+              Membre depuis {{ utilisateur.createdAt | date : "dd/MM/yyyy" }}
+            </i>
           </mat-card-subtitle>
         </mat-card-header>
         <img
@@ -34,7 +42,8 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <a *ngIf="isAdmin" 
+          <a
+            *ngIf="isAdmin"
             [routerLink]="['/edit-utilisateur', utilisateur.id]"
             mat-raised-button
             color="primary"
@@ -42,7 +51,8 @@
             <mat-icon fontIcon="edit"></mat-icon>
             Modifier
           </a>
-          <button *ngIf="isAdmin" 
+          <button
+            *ngIf="isAdmin"
             (click)="onDeleteUser(utilisateur.id)"
             mat-raised-button
             color="warn"

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Pays } from 'src/app/models/pays';
 import { Utilisateur } from 'src/app/models/utilisateur';
+import { PaysService } from 'src/app/services/pays.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
@@ -14,20 +16,28 @@ export class EditionUtilisateurComponent {
     email: ['', [Validators.email, Validators.required]],
     nom: ['', [Validators.required, Validators.minLength(3)]],
     prenom: ['', [Validators.required]],
+    pays: [null, []],
   });
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private serviceUtilisateur: UtilisateurService
+    private serviceUtilisateur: UtilisateurService,
+    private servicePays: PaysService
   ) {}
 
   idUtilisateur?: number;
   codeRetour: number = 0;
   messageErreur: string = '';
+  listePays: Pays[] = [];
 
   ngOnInit() {
+    this.servicePays.getPays().subscribe({
+      next: (listePays) => (this.listePays = listePays),
+      error: (erreur) => console.log(erreur),
+    });
+
     this.route.params.subscribe((parametres) => {
       this.idUtilisateur = parametres['id'];
 
@@ -37,6 +47,7 @@ export class EditionUtilisateurComponent {
             this.formulaire.get('email')?.setValue(utilisateur.email);
             this.formulaire.get('nom')?.setValue(utilisateur.nom);
             this.formulaire.get('prenom')?.setValue(utilisateur.prenom);
+            this.formulaire.get('pays')?.setValue(utilisateur.pays); //{id:1,nom:'france'}
           },
           error: (erreurRequete) => {
             if (erreurRequete.status === 404) {
@@ -49,6 +60,10 @@ export class EditionUtilisateurComponent {
         });
       }
     });
+  }
+
+  comparePays(paysOption: any, paysUtilisateur: any) {
+    return paysUtilisateur != null && paysUtilisateur.id == paysOption.id;
   }
 
   onSubmit() {

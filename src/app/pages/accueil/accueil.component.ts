@@ -12,10 +12,14 @@ export class AccueilComponent {
   listeUtilisateur: Utilisateur[] = [];
   isAdmin: boolean = false;
 
+  dateMaintenant: Date = new Date();
+
   constructor(
     private serviceUtilisateur: UtilisateurService,
     private connexionService: ConnexionService
   ) {}
+
+
 
   ngOnInit() {
     this.serviceUtilisateur._utilisateurs.subscribe(
@@ -23,11 +27,19 @@ export class AccueilComponent {
     );
 
     this.connexionService._utilisateurConnecte.subscribe(
-      (utilisateur) => (this.isAdmin = utilisateur?.role.nom == "ROLE_ADMINISTRATEUR")
+      (utilisateur) =>
+        (this.isAdmin = utilisateur?.role.nom == 'ROLE_ADMINISTRATEUR')
     );
 
     this.raffraichir();
   }
+
+  enMajuscule(texte: string) {
+    console.log('enMajuscule est appelée');
+    return texte.toUpperCase();
+  }
+
+  onClick() {}
 
   raffraichir(): void {
     this.serviceUtilisateur.getUtilisateurs();

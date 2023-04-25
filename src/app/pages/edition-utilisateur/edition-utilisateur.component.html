@@ -39,6 +39,16 @@
       </mat-error>
     </mat-form-field>
 
+    <mat-form-field appearance="fill">
+      <mat-label>Pays</mat-label>
+      <mat-select formControlName="pays" [compareWith]="comparePays">
+  
+        <mat-option *ngFor="let pays of listePays" [value]="pays">
+          {{ pays.nom }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div>
       <button mat-raised-button type="submit" color="primary">
         {{ idUtilisateur == null ? "Ajouter" : "Modifier" }}
