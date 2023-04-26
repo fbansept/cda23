@@ -31,6 +31,7 @@ export class EditionUtilisateurComponent {
   codeRetour: number = 0;
   messageErreur: string = '';
   listePays: Pays[] = [];
+  fichier: File | null = null;
 
   ngOnInit() {
     this.servicePays.getPays().subscribe({
@@ -60,6 +61,10 @@ export class EditionUtilisateurComponent {
         });
       }
     });
+  }
+
+  onImageSelectionne(evenement: any) {
+    this.fichier = evenement.target.files[0];
   }
 
   comparePays(paysOption: any, paysUtilisateur: any) {

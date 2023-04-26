@@ -17,6 +17,21 @@
       </mat-error>
     </mat-form-field>
 
+    <div>
+      <input
+        #fileSelector
+        type="file"
+        style="display: none"
+        (change)="onImageSelectionne($event)"
+      />
+      <button mat-mini-fab color="accent" (click)="fileSelector.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+      <span>{{
+        fichier != null ? fichier.name : "Aucun fichier selectionné"
+      }}</span>
+    </div>
+
     <mat-form-field appearance="fill">
       <mat-label>Prénom</mat-label>
       <input matInput formControlName="prenom" />
@@ -42,14 +57,13 @@
     <mat-form-field appearance="fill">
       <mat-label>Pays</mat-label>
       <mat-select formControlName="pays" [compareWith]="comparePays">
-  
         <mat-option *ngFor="let pays of listePays" [value]="pays">
           {{ pays.nom }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <div>
+    <div class="action-buttons">
       <button mat-raised-button type="submit" color="primary">
         {{ idUtilisateur == null ? "Ajouter" : "Modifier" }}
       </button>

@@ -24,7 +24,9 @@
               {{ utilisateur.role.nom }}
             </span>
             <i>
-              Membre depuis {{ utilisateur.createdAt | date : "dd/MM/yyyy" }}
+              Membre depuis
+              {{ utilisateur.createdAt | date : "dd/MM/yyyy" }} Mis à jour le :
+              {{ utilisateur.updatedAt | date : "dd/MM/yyyy HH:mm:ss" }}
             </i>
           </mat-card-subtitle>
         </mat-card-header>

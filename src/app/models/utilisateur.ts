@@ -9,4 +9,6 @@ export interface Utilisateur {
   role: Role;
   pays?: Pays;
   createdAt?: Date;
+  updatedAt?: Date;
+
 }

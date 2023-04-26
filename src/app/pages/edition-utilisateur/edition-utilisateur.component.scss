@@ -7,7 +7,7 @@ form{
     display: flex;
     flex-direction: column;
 
-    button, a {
+    .action-buttons button, a {
         width: 100px;
     }
 }
