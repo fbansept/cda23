@@ -73,11 +73,24 @@ export class EditionUtilisateurComponent {
 
   onSubmit() {
     if (this.formulaire.valid) {
+      const formData = new FormData();
+
       const utilisateur: Utilisateur = this.formulaire.value;
       utilisateur.id = this.idUtilisateur;
 
+      if (this.fichier) {
+        formData.append('fichier', this.fichier);
+      }
+
+      formData.append(
+        'utilisateur',
+        new Blob([JSON.stringify(utilisateur)], {
+          type: 'application/json',
+        })
+      );
+    
       this.serviceUtilisateur
-        .editionUtilisateur(utilisateur)
+        .editionUtilisateur(formData)
         .subscribe((resultat) => this.router.navigateByUrl('accueil'));
     }
   }

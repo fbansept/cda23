@@ -27,7 +27,7 @@ export class UtilisateurService {
     return this.http.delete('http://localhost:8080/admin/utilisateur/' + id);
   }
 
-  public editionUtilisateur(utilisateur: any): Observable<any> {
-    return this.http.post('http://localhost:8080/admin/utilisateur', utilisateur);
+  public editionUtilisateur(formData: FormData): Observable<any> {
+    return this.http.post('http://localhost:8080/admin/utilisateur', formData);
   }
 }

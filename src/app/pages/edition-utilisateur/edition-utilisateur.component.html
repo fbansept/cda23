@@ -24,7 +24,12 @@
         style="display: none"
         (change)="onImageSelectionne($event)"
       />
-      <button mat-mini-fab color="accent" (click)="fileSelector.click()">
+      <button
+        mat-mini-fab
+        type="button"
+        color="accent"
+        (click)="fileSelector.click()"
+      >
         <mat-icon>attach_file</mat-icon>
       </button>
       <span>{{
