@@ -26,14 +26,17 @@ export class UtilisateurService {
   }
 
   public getUtilisateur(id: number): Observable<any> {
-    return this.http.get('http://localhost:8080/utilisateur/' + id);
+    return this.http.get(environment.serverUrl + '/utilisateur/' + id);
   }
 
   public deleteUtilisateur(id: number): Observable<any> {
-    return this.http.delete('http://localhost:8080/admin/utilisateur/' + id);
+    return this.http.delete(environment.serverUrl + '/admin/utilisateur/' + id);
   }
 
   public editionUtilisateur(formData: FormData): Observable<any> {
-    return this.http.post('http://localhost:8080/admin/utilisateur', formData);
+    return this.http.post(
+      environment.serverUrl + '/admin/utilisateur',
+      formData
+    );
   }
 }
