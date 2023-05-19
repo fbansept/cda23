@@ -29,11 +29,19 @@ export class ConnexionService {
       const json = window.atob(data);
       const donneesUtilisateur = JSON.parse(json);
 
+      //ROLE_UTILISATEUR, ROLE_ADMINISTRATEUR,
+      const listeRole = donneesUtilisateur.roles
+        .split(',')
+        .filter((nomRole: string) => nomRole != '')
+        .map((nomRole: string) => {
+          return { nom: nomRole };
+        });
+
       const utilisateur: Utilisateur = {
         email: donneesUtilisateur.sub,
         nom: donneesUtilisateur.nom,
         prenom: donneesUtilisateur.prenom,
-        role: { nom: donneesUtilisateur.role },
+        roles: listeRole,
       };
 
       this._utilisateurConnecte.next(utilisateur);

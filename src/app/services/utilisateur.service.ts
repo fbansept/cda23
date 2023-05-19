@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ImageService } from './image.service';
 import { Utilisateur } from '../models/utilisateur';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class UtilisateurService {
 
   public getUtilisateurs() {
     this.http
-      .get<Utilisateur[]>('http://localhost:8080/utilisateurs')
+      .get<Utilisateur[]>(environment.serverUrl + '/utilisateurs')
       .subscribe((utilisateurs: Utilisateur[]) => {
         for (let utilisateur of utilisateurs) {
           this.imageService.chargementImageProfil(utilisateur);

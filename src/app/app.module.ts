@@ -21,6 +21,7 @@ import { JwtInterceptor } from './services/jwt.interceptor';
 import { Page403Component } from './pages/page403/page403.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FullnamePipe } from './pipes/fullname.pipe';
+import { IsAdminPipe } from './pipes/is-admin.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FullnamePipe } from './pipes/fullname.pipe';
     EditionUtilisateurComponent,
     Page403Component,
     FullnamePipe,
+    IsAdminPipe,
   ],
   imports: [
     BrowserModule,

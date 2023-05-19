@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Utilisateur } from 'src/app/models/utilisateur';
+import { IsAdminPipe } from 'src/app/pipes/is-admin.pipe';
 import { ConnexionService } from 'src/app/services/connexion.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
@@ -19,8 +20,6 @@ export class AccueilComponent {
     private connexionService: ConnexionService
   ) {}
 
-
-
   ngOnInit() {
     this.serviceUtilisateur._utilisateurs.subscribe(
       (utilisateurs) => (this.listeUtilisateur = utilisateurs)
@@ -28,7 +27,10 @@ export class AccueilComponent {
 
     this.connexionService._utilisateurConnecte.subscribe(
       (utilisateur) =>
-        (this.isAdmin = utilisateur?.role.nom == 'ROLE_ADMINISTRATEUR')
+        (this.isAdmin =
+          utilisateur != null
+            ? new IsAdminPipe().transform(utilisateur)
+            : false)
     );
 
     this.raffraichir();

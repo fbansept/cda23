@@ -6,7 +6,7 @@ export interface Utilisateur {
   prenom: string;
   nom: string;
   email: string;
-  role: Role;
+  roles: Role[];
   pays?: Pays;
   createdAt?: Date;
   updatedAt?: Date;
