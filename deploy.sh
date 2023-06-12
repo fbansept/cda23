@@ -13,4 +13,4 @@ docker stop angular-demo-franck
 docker rm angular-demo-franck
 
 # Lancer un nouveau conteneur
-docker run -d --net backend --ip 172.18.0.6 --name=angular-demo-franck -p 4200:80
+docker run -d --net backend --ip 172.18.0.6 --name=angular-demo-franck -p 4200:80 angular-demo-franck
