@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-RUN ng build --prod --base-href cda23
+RUN npm run build --prod -- --base-href cda23
 
 # Étape 2, basée sur Nginx pour avoir uniquement le contenu compilé pour servir avec Nginx
 FROM nginx:1.17.1-alpine
